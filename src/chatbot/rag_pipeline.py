@@ -3,8 +3,8 @@
 import re
 from pathlib import Path
 
-from langchain.docstore.document import Document
-from langchain.text_splitter import CharacterTextSplitter
+from langchain_core.documents import Document
+from langchain_text_splitters import CharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -18,7 +18,7 @@ EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
 DEBUG_DUMP_PATH = Path(__file__).resolve().parents[2] / "data" / "combined_student_records_from_db.txt"
 
 NAME_PATTERN = re.compile(
-    r"(?:student|for|of|about|details for|record of|show me|what is|tell me about)\s+"
+    r"(?:student|for|of|about|details for|record of|show me|what is|tell me about|who is)\s+"
     r"([A-Za-z][A-Za-z\s'-]*?)(?:'s\b|[?.,]|$)",
     re.IGNORECASE,
 )
