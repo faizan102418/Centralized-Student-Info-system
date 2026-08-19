@@ -57,6 +57,41 @@ student-record-chatbot/
 └── README.md
 ```
 
+## 🏗️ Architecture
+
+Redrawn from the system architecture in the original thesis (Chapter 6):
+
+```mermaid
+flowchart LR
+    U[User] --> UI[Streamlit UI]
+    UI --> APP[App / RAG Pipeline]
+    APP --> EX[1. Extract Student Name]
+    EX --> RET[2. Retrieve Relevant Chunks]
+    RET --> VDB[(ChromaDB Vector Store)]
+    VDB --> PROMPT[3. Build Contextual Prompt]
+    PROMPT --> LLM[4. Groq API - LLM]
+    LLM --> RESP[Generated Response]
+    RESP --> UI
+    UI --> U
+
+    DB[(MySQL Database)] -->|student data| EMB[Embeddings: sentence-transformers]
+    EMB --> VDB
+```
+
+**Flow:** a user query comes in through Streamlit → the app extracts a
+student name (if any) → relevant record chunks are retrieved from the
+Chroma vector store → a grounded prompt is built and sent to the Groq API
+→ the response is streamed back to the chat UI. The vector store itself is
+built at startup from MySQL data (`student_general_data`,
+`student_scholarship`, `student_fee_submission`), split into chunks, and
+embedded with `sentence-transformers/all-mpnet-base-v2`.
+
+## 📚 Full Thesis
+
+The complete FYP thesis report — literature review, methodology, testing
+& evaluation, results, limitations, and future work — is available here:
+[Thesis: Centralized Student Information System (PDF)](https://drive.google.com/file/d/1aw5buTfeFIoA-vQ6hRS12QXcqfjRhVzS/view?usp=sharing)
+
 ## 🛠️ Setup
 
 ### Prerequisites
