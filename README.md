@@ -1,16 +1,32 @@
-# 🎓 Student Record Chatbot
+# 🎓 Centralized Student Information System — RAG Chatbot
 
 A Retrieval-Augmented Generation (RAG) chatbot that answers natural-language
 questions about student records. It combines a MySQL database, a Chroma
 vector store, HuggingFace embeddings, and the Groq API for fast LLM
 inference — all wrapped in a Streamlit chat interface.
 
-> Final Year Project (FYP), [Your University Name] — [Year]
+> Final Year Project, BS Computer Science (Session 2021–2025)
+> Institute of Computer Science and Information Technology, Faculty of
+> Management and Computer Science, The University of Agriculture, Peshawar,
+> Pakistan — July 2025
+> Supervised by Mr. Imran ud Din, Lecturer, ICS/IT
+
+This repository is a restructured and extended version of the original
+team project. See [Team & Acknowledgment](#-team--acknowledgment) below.
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![uv](https://img.shields.io/badge/dependency%20manager-uv-purple)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
+## 📖 About
+
+Educational institutions store student data across multiple database
+tables (general info, scholarships, fee records), and accessing it
+normally requires SQL knowledge or navigating multi-screen admin
+interfaces. This project addresses that by letting users ask plain-English
+questions and get answers grounded in the actual database content, instead
+of relying on an LLM's general knowledge or exposing the database directly.
 
 ## ✨ Features
 
@@ -53,8 +69,8 @@ student-record-chatbot/
 ### 1. Clone and install dependencies
 
 ```bash
-git clone https://github.com/<your-username>/student-record-chatbot.git
-cd student-record-chatbot
+git clone https://github.com/faizan102418/Centralized-Student-Info-system.git
+cd Centralized-Student-Info-system
 uv sync
 ```
 
@@ -134,13 +150,22 @@ needed.
 - [ ] Deploy a live demo (Streamlit Community Cloud)
 - [ ] Add CI (GitHub Actions) to run tests on every push
 
-## 👥 Team
+## 👥 Team & Acknowledgment
 
-This was built as a 3-person Final Year Project team effort.
+This was originally built as a 3-person Final Year Project team effort,
+submitted to the Institute of Computer Science and Information Technology,
+The University of Agriculture, Peshawar (Session 2021–2025), supervised by
+**Mr. Imran ud Din**.
 
-- [Your Name] — [your contribution, e.g. "database design & testing"]
-- [Teammate 2] — [contribution]
-- [Teammate 3] — [contribution]
+- **Mohammad Mawan Zeb** (Roll No. 104)
+- **Mohammad Faizan Sajid** (Roll No. 126)
+- **Mohsin Khan Durrani** (Roll No. 72)
+
+This repository is maintained by Mohammad Faizan Sajid as a fork of the
+original team submission, restructured with a proper `src/` layout, `uv`
+dependency management, fixed deprecated APIs, tests, and ongoing feature
+work. See the [Roadmap](#️-roadmap--future-improvements) above for what's
+being actively extended.
 
 ## 📄 License
 
