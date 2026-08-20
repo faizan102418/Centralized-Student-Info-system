@@ -30,6 +30,7 @@ of relying on an LLM's general knowledge or exposing the database directly.
 
 ## ✨ Features
 
+- **Authentication & role-based access** — `admin`/`faculty` accounts can query any student; `student` accounts can only query their own record
 - **Natural-language student lookup** — e.g. *"What is Alice Smith's discipline?"*, *"Is Bob Johnson's fee paid?"*
 - **RAG pipeline** — retrieves relevant records from a vector store before asking the LLM, instead of hoping the model already knows the answer
 - **MySQL integration** — pulls live data from general, scholarship, and fee-submission tables
@@ -121,6 +122,17 @@ mysql -u root -p -e "CREATE DATABASE project_data;"
 mysql -u root -p project_data < data/seed.sql
 ```
 
+`data/seed.sql` also creates a `users` table with three demo accounts for
+testing login and role-based access:
+
+| Username | Password | Role | Access |
+|---|---|---|---|
+| `admin` | `admin123` | admin | Any student |
+| `faculty1` | `faculty123` | faculty | Any student |
+| `alice` | `alice123` | student | Only Alice Smith's own record |
+
+Change or remove these before any real deployment.
+
 ### 3. Configure environment variables
 
 ```bash
@@ -178,10 +190,11 @@ needed.
 
 ## 🗺️ Roadmap / Future Improvements
 
+- [x] Authentication and role-based access control
 - [ ] Join student records on a stable student ID instead of name (avoids collisions for duplicate names)
-- [ ] Add authentication so only authorized staff can query records
 - [ ] Support multi-turn follow-up questions ("what about his fee status?") using conversation context
 - [ ] Add pagination / summarization for students with large scholarship/fee histories
+- [ ] Replace regex name extraction with proper NER for more robust query parsing
 - [ ] Deploy a live demo (Streamlit Community Cloud)
 - [ ] Add CI (GitHub Actions) to run tests on every push
 

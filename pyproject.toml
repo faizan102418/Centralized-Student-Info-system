@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "streamlit>=1.38",
-    "langchain>=0.3",
+    "langchain>=1.0,<2.0",
+    "langchain-core>=1.0,<2.0",
+    "langchain-text-splitters>=1.0,<2.0",
     "langchain-community>=0.3",
     "langchain-huggingface>=0.1",
     "langchain-chroma>=0.1",
@@ -15,6 +17,8 @@ dependencies = [
     "mysql-connector-python>=9.0",
     "python-dotenv>=1.0",
     "requests>=2.32",
+    "bcrypt>=4.0",
+    "pytest>=9.1.1",
 ]
 
 [project.optional-dependencies]

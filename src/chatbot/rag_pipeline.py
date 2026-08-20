@@ -8,6 +8,7 @@ from langchain_text_splitters import CharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
+from chatbot.auth import can_access_student
 from chatbot.database import fetch_student_data_from_db
 from chatbot.llm_client import query_groq_api
 
@@ -18,7 +19,8 @@ EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
 DEBUG_DUMP_PATH = Path(__file__).resolve().parents[2] / "data" / "combined_student_records_from_db.txt"
 
 NAME_PATTERN = re.compile(
-    r"(?:student|for|of|about|details for|record of|show me|what is|tell me about|who is)\s+"
+    r"(?:student|for|of|about|details for|record of|show me|what is|"
+    r"tell me about|who is)\s+"
     r"([A-Za-z][A-Za-z\s'-]*?)(?:'s\b|[?.,]|$)",
     re.IGNORECASE,
 )
@@ -80,11 +82,23 @@ def extract_student_name(query: str) -> str | None:
     return " ".join(match.group(1).strip().split()).title()
 
 
-def answer_question(vectorstore: Chroma, user_input: str) -> str:
-    """Route a user question to a student-specific or general answer."""
+def answer_question(vectorstore: Chroma, user_input: str, user: dict | None = None) -> str:
+    """
+    Route a user question to a student-specific or general answer.
+
+    If `user` is provided, enforces role-based access: student accounts can
+    only retrieve their own record, while admin/faculty can query any
+    student. Pass `user=None` to skip access checks (e.g. in run_console()).
+    """
     student_name = extract_student_name(user_input)
     if not student_name:
         return query_groq_api(user_input)
+
+    if user is not None and not can_access_student(user, student_name):
+        return (
+            f"⚠️ You don't have permission to view {student_name}'s record. "
+            "Student accounts can only view their own information."
+        )
 
     prompt = get_student_record_prompt(vectorstore, student_name, user_input)
     if not prompt:
