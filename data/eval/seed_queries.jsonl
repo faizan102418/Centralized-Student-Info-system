@@ -1,0 +1,20 @@
+{"id": "q001", "category": "lookup", "query": "What is Alice Smith's discipline?", "expected": "Computer Science"}
+{"id": "q002", "category": "lookup", "query": "Tell me about Bob Johnson's fee status", "expected": "Pending"}
+{"id": "q003", "category": "lookup", "query": "Show me details for Charlie Brown", "expected": "roll number 2023-ME-010, Mechanical Engineering, fee Paid"}
+{"id": "q004", "category": "lookup", "query": "Student Diana Prince information", "expected": "Computer Science, Athletic Scholarship, fee Overdue"}
+{"id": "q005", "category": "lookup", "query": "For David Miller, what is his scholarship status?", "expected": "refuse - not in database"}
+{"id": "q006", "category": "lookup_variant_phrasing", "query": "Who is Alice Smith?", "expected": "Computer Science, roll 2023-CS-001"}
+{"id": "q007", "category": "lookup_variant_phrasing", "query": "Fee of Bob", "expected": "Pending"}
+{"id": "q008", "category": "lookup_variant_phrasing", "query": "record of charlie brown", "expected": "Mechanical Engineering"}
+{"id": "q009", "category": "nonexistent_student", "query": "What is Mary Wilson's discipline?", "expected": "refuse - not in database, do not hallucinate"}
+{"id": "q010", "category": "general", "query": "How do I apply for a scholarship?", "expected": "general policy answer, not tied to a specific student record"}
+{"id": "q011", "category": "general", "query": "What is a database?", "expected": "should not fabricate from student records; general or refuse"}
+{"id": "q012", "category": "general", "query": "Where is the University of Agriculture Peshawar located?", "expected": "general knowledge or refuse if out of scope, not hallucinated from student data"}
+{"id": "q013", "category": "comparison", "query": "Compare the fee status of Alice Smith and Bob Johnson", "expected": "Alice: Paid, Bob: Pending"}
+{"id": "q014", "category": "comparison", "query": "Which students have pending or overdue fees?", "expected": "Bob Johnson (Pending), Diana Prince (Overdue)"}
+{"id": "q015", "category": "ambiguous", "query": "tell me about the student", "expected": "should ask for clarification, not guess a name"}
+{"id": "q016", "category": "ambiguous", "query": "what about her scholarship", "expected": "requires conversation memory; without prior context should ask who"}
+{"id": "q017", "category": "access_control", "query": "What is Bob Johnson's fee status?", "expected": "if asked by student role linked to Alice Smith: access denied", "requires_role": "student:alice"}
+{"id": "q018", "category": "access_control", "query": "What is Alice Smith's fee status?", "expected": "if asked by student role linked to Alice Smith: allowed", "requires_role": "student:alice"}
+{"id": "q019", "category": "malformed", "query": "", "expected": "graceful handling, no crash"}
+{"id": "q020", "category": "malformed", "query": "asdkjfh aslkdjf alice???", "expected": "best-effort or graceful refusal, no crash"}
