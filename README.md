@@ -1,3 +1,5 @@
+'⚠️ This repository has moved to [Centralized-Student-Information-system]([link](https://github.com/faizan102418/Centralized-Student-Information-system.git))
+
 # 🎓 Centralized Student Information System — RAG Chatbot
 
 A Retrieval-Augmented Generation (RAG) chatbot that answers natural-language
